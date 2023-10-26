@@ -1,0 +1,92 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.7.16-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10' // Querydsl 관련 설정 추가
+}
+
+group = 'com.forcat'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    annotationProcessor 'org.projectlombok:lombok'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Querydsl 설정
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    // Thymeleaf 레이아웃 설정 https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
+
+    // 스프링 시큐리티 설정 추가
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 스프링 시큐리티 테스트
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // 시큐리티로 인증 로그인 회원 정보 타임리프에서 사용하기
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    // 유효성 검사
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // modelmapper 라이브러리 추가 (Entity <-> DTO)
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Querydsl 관련 설정 추가
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
