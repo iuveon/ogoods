@@ -191,16 +191,21 @@
     </div>
   </div>
 
+  <br><br><br><hr><br><br><br>
+
+
+  <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
+    <img th:if="${not #strings.isEmpty(itemImg.imgUrl) and itemImg.repImgYn == 'N'}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
+  </div>
+
+  <br><br><br><hr><br><br><br>
+
   <div class="jumbotron jumbotron-fluid mgt-30">
     <div class="container">
       <h4 class="display-5">상품 상세 설명</h4>
       <hr class="my-4">
       <p class="lead" th:text="${item.itemDetail}"></p>
     </div>
-  </div>
-
-  <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
-    <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
   </div>
 
 </div>
