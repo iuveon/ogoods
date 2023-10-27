@@ -13,6 +13,9 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/item/list">상품 목록</a>
+              </li>
               <!-- sec:authorize= "hasAnyAuthority()" : 권한을 가진 사용자만 보임 -->
               <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a class="nav-link" href="/admin/item/new">상품 등록</a>
