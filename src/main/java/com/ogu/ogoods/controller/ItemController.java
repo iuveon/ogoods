@@ -2,6 +2,7 @@ package com.ogu.ogoods.controller;
 
 import com.ogu.ogoods.dto.ItemFormDto;
 import com.ogu.ogoods.dto.ItemSearchDto;
+import com.ogu.ogoods.dto.MainItemDto;
 import com.ogu.ogoods.entity.Item;
 import com.ogu.ogoods.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,16 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
+
+    @GetMapping(value = "/item/list") // http://localhost/item/list
+    public String itemList(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+        model.addAttribute("items", items);
+        model.addAttribute("itemSearchDto", itemSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "item/itemList";
+    }
 
     @GetMapping(value = "/admin/item/new") // http://localhost/admin/item/new
     public String itemForm(Model model) {
