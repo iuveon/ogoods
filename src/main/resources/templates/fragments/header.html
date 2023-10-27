@@ -13,12 +13,14 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <!-- sec:authorize= "hasAnyAuthority()" : 권한을 가진 사용자만 보임 -->
               <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a class="nav-link" href="/admin/item/new">상품 등록</a>
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a class="nav-link" href="/admin/items">상품 관리</a>
               </li>
+              <!-- sec:authorize= "isAuthenticated()" : 로그인(인증)한 경우에만 보임 -->
               <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/cart">장바구니</a>
               </li>
@@ -32,39 +34,10 @@
               <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/members/logout">로그아웃</a>
               </li>
-        </ul>
+            </ul>
           </div>
       </div>
     </div>
   </nav>
-
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {//페이지의 DOM 구조가 완전히 로드되면 해당 함수를 실행
-      // 전화번호 복사 버튼 클릭 이벤트 처리
-      document.getElementById("phoneLink").addEventListener("click", function (event) {
-        event.preventDefault(); // 링크의 기본 동작 방지
-        copyToClipboard("031-0000-0000"); // 전화번호 복사
-      });
-
-      // 이메일 주소 복사 버튼 클릭 이벤트 처리
-      document.getElementById("emailLink").addEventListener("click", function (event) {
-        event.preventDefault(); // 링크의 기본 동작 방지
-        copyToClipboard("gg.ww.ljh940115@gmail.com"); // 이메일 주소 복사
-      });
-
-      // 텍스트를 클립보드에 복사하는 함수
-      function copyToClipboard(text) {//텍스트를 클립보드에 복사
-        var dummyTextArea = document.createElement("textarea");//dummyTextArea라는 새로운 <textarea> 요소를 생성
-        document.body.appendChild(dummyTextArea);//body에 추가
-        dummyTextArea.value = text;//dummyTextArea에 복사하려는 값, 텍스트
-        dummyTextArea.select();//텍스트를 클립보드에 복사
-        document.execCommand("copy");
-        document.body.removeChild(dummyTextArea);//dummyTextArea를 페이지에서 제거
-        alert(text + "가 클립보드에 복사되었습니다.");
-      }
-    });
-  </script>
-</div>
 </div>
 </html>

@@ -42,11 +42,11 @@ public class OrderController {
             // 에러 정보를 문자열로 만들고, Http응답으로 에러코드 리턴
         }
 
-        String email = principal.getName(); // 현재 로그인한 회원의 식별자(이메일)를 가져와서 email에 저장
+        String mid = principal.getName(); // 현재 로그인한 회원의 식별자를 가져와서 mid로 저장
         Long orderId;
 
         try {
-            orderId = orderService.order(orderDto, email); // 주문 로직 호출 후 반환 받은 주문번호를 orderId에 저장
+            orderId = orderService.order(orderDto, mid); // 주문 로직 호출 후 반환 받은 주문번호를 orderId에 저장
         } catch(Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

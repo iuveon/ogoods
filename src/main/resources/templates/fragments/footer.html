@@ -2,6 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <div th:fragment="footer">
         <footer class="page-footer font-small cyan darken-3">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {//페이지의 DOM 구조가 완전히 로드되면 해당 함수를 실행
+                    // 전화번호 복사 버튼 클릭 이벤트 처리
+                    document.getElementById("phoneLink").addEventListener("click", function (event) {
+                        event.preventDefault(); // 링크의 기본 동작 방지
+                        copyToClipboard("010-1234-1234"); // 전화번호 복사
+                    });
+
+                    // 이메일 주소 복사 버튼 클릭 이벤트 처리
+                    document.getElementById("emailLink").addEventListener("click", function (event) {
+                        event.preventDefault(); // 링크의 기본 동작 방지
+                        copyToClipboard("admin@ogoods.com"); // 이메일 주소 복사
+                    });
+
+                    // 텍스트를 클립보드에 복사하는 함수
+                    function copyToClipboard(text) {//텍스트를 클립보드에 복사
+                        var dummyTextArea = document.createElement("textarea");//dummyTextArea라는 새로운 <textarea> 요소를 생성
+                        document.body.appendChild(dummyTextArea);//body에 추가
+                        dummyTextArea.value = text;//dummyTextArea에 복사하려는 값, 텍스트
+                        dummyTextArea.select();//텍스트를 클립보드에 복사
+                        document.execCommand("copy");
+                        document.body.removeChild(dummyTextArea);//dummyTextArea를 페이지에서 제거
+                        alert(text + "가 클립보드에 복사되었습니다.");
+                    }
+                });
+            </script>
+
             <div class="footer-copyright text-center py-3">
                 O-GU-O-GOODS!
             </div>
@@ -12,8 +39,8 @@
                     <div class="row">
                         <div class="col-md-6 d-flex align-items-center">
                             <p class="mb-0 phone pl-md-2">
-                                <a href="#" class="mr-2" id="phoneLink"><span class="fa fa-phone mr-1"></span> 010-1234-1234</a>
-                                <a href="#" id="emailLink"><span class="fa fa-paper-plane mr-1"></span> admin@ogoods.com</a>
+                                <a href="#" class="mr-2" id="phoneLink"><span class="fa fa-phone mr-1"></span>010-1234-1234</a>
+                                <a href="#" id="emailLink"><span class="fa fa-paper-plane mr-1"></span>admin@ogoods.com</a>
                             </p>
                         </div>
                         <div class="col-md-6 d-flex justify-content-md-end">
