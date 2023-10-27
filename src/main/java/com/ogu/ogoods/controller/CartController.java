@@ -41,11 +41,11 @@ public class CartController {
             // 오류 메세지와 함께 400 ERROR (BAD_REQUEST) 리턴
         }
 
-        String email = principal.getName(); // 사용자의 ID(이메일)를 받아서 email로 저장
+        String mid = principal.getName(); // 사용자의 ID를 받아서 mid로 저장
         Long cartItemId;
 
         try {
-            cartItemId = cartService.addCart(cartItemDto, email);
+            cartItemId = cartService.addCart(cartItemDto, mid);
             // 장바구니에 상품 담기 로직 호출
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

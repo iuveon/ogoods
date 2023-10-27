@@ -29,10 +29,10 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final OrderService orderService;
 
-    public Long addCart(CartItemDto cartItemDto, String email) {
+    public Long addCart(CartItemDto cartItemDto, String mid) {
         Item item = itemRepository.findById(cartItemDto.getItemId())
-                                .orElseThrow(EntityNotFoundException::new);
-        Member member = memberRepository.findByEmail(email); // 현재 로그인한 회원 엔티티 조회하여 member로 저장
+                .orElseThrow(EntityNotFoundException::new);
+        Member member = memberRepository.findByMid(mid); // 현재 로그인한 회원 엔티티 조회하여 member로 저장
 
         Cart cart = cartRepository.findByMemberId(member.getId()); // 현재 로그인한 회원의 장바구니 엔티티 조회하여 cart에 저장
         if(cart == null) { // cart가 비어있다면 -> 아직 장바구니가 생성되지 않음
@@ -55,11 +55,11 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public List<CartDetailDto> getCartList(String email) {
+    public List<CartDetailDto> getCartList(String mid) {
 
         List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
 
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByMid(mid);
         Cart cart = cartRepository.findByMemberId(member.getId());
         // 현재 로그인한 회원의 장바구니 엔티티 조회
         if(cart == null) { // 장바구니가 비어있다면
@@ -72,13 +72,13 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public boolean validateCartItem(Long cartItemId, String email) {
-        Member curMember = memberRepository.findByEmail(email); // 현재 로그인한 회원 조회
+    public boolean validateCartItem(Long cartItemId, String mid) {
+        Member curMember = memberRepository.findByMid(mid); // 현재 로그인한 회원 조회
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-                                            .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
         Member savedMember = cartItem.getCart().getMember(); // 장바구니 상품 저장 회원 조회
 
-        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+        if(!StringUtils.equals(curMember.getMid(), savedMember.getMid())) {
             // curMember와 savedMember가 같지 않다면
             return false; // false 리턴
         }
@@ -97,7 +97,7 @@ public class CartService {
         cartItemRepository.delete(cartItem);
     }
 
-    public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String email) {
+    public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String mid) {
         List<OrderDto> orderDtoList = new ArrayList<>();
         for(CartOrderDto cartOrderDto : cartOrderDtoList) {
             CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())
@@ -109,7 +109,7 @@ public class CartService {
             orderDtoList.add(orderDto);
         }
 
-        Long orderId = orderService.orders(orderDtoList, email);
+        Long orderId = orderService.orders(orderDtoList, mid);
 
         for(CartOrderDto cartOrderDto : cartOrderDtoList) {
             CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())

@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8" />
-    <title>thymeleaf layout</title>
+    <title>O-GU-O-GOODS!</title>
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -37,11 +37,9 @@
 <!-- th:replace -> 다른 html 파일로 치환
      fragments/header(fragments 폴더 하위의 header.html 파일) :: header(header 영역) 가지고 오기 -->
 <div th:replace="~{fragments/header::header}"></div>
-
 <div layout:fragment="content" class="content">
     <-- layout:fragment -> layout에서 변경 될 영역 -->
 </div>
-
 <div th:replace="~{fragments/footer::footer}"></div>
 
 </body>
