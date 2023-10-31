@@ -13,8 +13,7 @@ public class MemberFormDto {
 
     @NotBlank(message = "아이디는 필수 입력 값입니다.")
     // NotBlank : Null값 비허용 ("", " " 모두 비허용)
-    @Length(min=4, max=12, message = "아이디는 4자 이상, 12자 이하로 입력해주세요.")
-    // @Length : 필드 크기 검증
+    @Pattern(regexp = "^[a-zA-Z0-9]{4,12}$", message = "아이디는 4자 이상, 12자 이하의 영문 및 숫자로 이루어져야 합니다.")
     private String mid;
 
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
@@ -27,7 +26,7 @@ public class MemberFormDto {
     private String name;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식에 맞지 않습니다.")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "올바른 이메일 주소를 입력해주세요.")
     private String email;
 
     @NotBlank(message = "연락처는 필수 입력 값입니다.")
