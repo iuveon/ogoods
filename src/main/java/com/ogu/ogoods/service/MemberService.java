@@ -22,11 +22,15 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(member);
     }
 
-    private void validateDuplicateMember(Member member) {
+    public void validateDuplicateMember(Member member) {
         Member findMember = memberRepository.findByMid(member.getMid());
         if(findMember != null) {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
+    }
+
+    public boolean existsByMid(String mid) {
+        return memberRepository.existsByMid(mid);
     }
 
     @Override
@@ -42,4 +46,5 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+
 }

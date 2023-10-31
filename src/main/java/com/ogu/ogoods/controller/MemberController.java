@@ -4,6 +4,7 @@ import com.ogu.ogoods.dto.MemberFormDto;
 import com.ogu.ogoods.entity.Member;
 import com.ogu.ogoods.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -55,4 +57,14 @@ public class MemberController {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/memberLoginForm";
     }
+
+    @GetMapping(value =  "/checkId")
+    public ResponseEntity<String> checkIdDuplication(@RequestParam("mid") String mid) {
+        if (memberService.existsByMid(mid)) {
+            return ResponseEntity.ok("exists"); // 이미 가입된 아이디
+        } else {
+            return ResponseEntity.ok("available"); // 사용 가능한 아이디
+        }
+    }
+
 }

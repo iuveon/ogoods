@@ -52,4 +52,5 @@ public class Member extends BaseTimeEntity {
         member.setRole(Role.ADMIN);
         return member;
     }
+
 }
