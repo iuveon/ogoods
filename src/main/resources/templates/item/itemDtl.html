@@ -120,6 +120,10 @@
     .mgb-15{
       margin-bottom:15px;
     }
+    .img-1{
+      max-width:100%;
+      width:auto;
+    }
     .mgt-30{
       margin-top:30px;
     }
@@ -138,6 +142,21 @@
     .wd50{
       height:auto;
       width:50%;
+    }
+    .tab-notice{
+      font-size: 10px;
+      max-width: 120%;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #fff;
+      line-height: 1.8;
+      font-weight: 400;
+      color: gray;
+    }
+    .tab-wid1{
+      width: 12%;
+    }
+    .tab-wid2{
+      width: 88%;
     }
   </style>
 </th:block>
@@ -195,18 +214,61 @@
 
 
   <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
-    <img th:if="${not #strings.isEmpty(itemImg.imgUrl) and itemImg.repImgYn == 'N'}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
+    <img th:if="${not #strings.isEmpty(itemImg.imgUrl) and itemImg.repImgYn == 'N'}" th:src="${itemImg.imgUrl}" class="rounded mgb-15 img-1">
   </div>
 
   <br><br><br><hr><br><br><br>
 
   <div class="jumbotron jumbotron-fluid mgt-30">
     <div class="container">
-      <h4 class="display-5">상품 상세 설명</h4>
+      <h6 class="display-5">상품 상세 설명</h6>
       <hr class="my-4">
       <p class="lead" th:text="${item.itemDetail}"></p>
     </div>
   </div>
+
+  <table class="tab-notice">
+    <tr>
+      <td class="tab-wid1">
+        배송정보
+      </td>
+      <td class="tab-wid2">
+        <ul>
+          <li>배송 방법 : 택배</li>
+          <li>배송 지역 : 전국지역</li>
+          <li>배송 비용 : 2,500원</li>
+          <li>배송 기간 : 1일 ~ 5일</li>
+          <li>배송 안내 : - 산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다.</li>
+          <li>고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다.</li>
+          <li>다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.</li>
+          <li>택배 상황에 따라 배송이 4-7일 지연되기도 하니 꼭 감안후 구매하시기 바랍니다.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        교환/반품 안내
+      </td>
+      <td>
+        <ul>
+          <li>교환/반품 신청은 배송완료 후 7일 이내 가능합니다.</li>
+          <li>변심 반품의 경우 왕복배송비를 차감한 금액이 환불되며, 제품 및 포장 상태가 재판매 가능하여야 합니다.</li>
+          <li>상품 불량인 경우는 배송비를 포함한 전액이 환불됩니다.</li>
+          <li>출고 이후 환불요청 시 상품 회수 후 처리됩니다.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        기타 기준 사항
+      </td>
+      <td>
+        <ul>
+          <li>미성년자는 상품 구입시 법정대리인이 동의하지 아니하면 미성년자 본인 또는 법정대리인이 구매 취소 할 수 있습니다.</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
 
 </div>
 

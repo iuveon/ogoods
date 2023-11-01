@@ -22,11 +22,27 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(member);
     }
 
-    private void validateDuplicateMember(Member member) {
-        Member findMember = memberRepository.findByMid(member.getMid());
-        if(findMember != null) {
+    public void validateDuplicateMember(Member member) {
+        boolean findMid = memberRepository.existsByMid(member.getMid());
+        boolean findEmail = memberRepository.existsByEmail(member.getEmail());
+        boolean findPhone = memberRepository.existsByPhone(member.getPhone());
+        if(findMid) {
             throw new IllegalStateException("이미 가입된 회원입니다.");
+        } else if(findEmail) {
+            throw new IllegalStateException("사용중인 이메일입니다.");
+        } else if(findPhone) {
+            throw new IllegalStateException("사용중인 번호입니다.");
         }
+    }
+
+    public boolean existsByMid(String mid) {
+        return memberRepository.existsByMid(mid);
+    }
+    public boolean existsByEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+    public boolean existsByPhone(String phone) {
+        return memberRepository.existsByPhone(phone);
     }
 
     @Override
@@ -42,4 +58,5 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+
 }

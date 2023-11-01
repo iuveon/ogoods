@@ -30,7 +30,7 @@ public class OrderController {
     public @ResponseBody ResponseEntity order (@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
         // @Valid로 객체에 대한 검증을 한 후 -> BindingResult 객체에 검증 결과를 담음
         // Principal : 현재 로그인한 사용자의 정보를 나타내는 객체
-        if(bindingResult.hasErrors()) { // OrderDto 객체 바인딩 시 에러가 있다면
+        if(bindingResult.hasErrors()) { // OrderDto 객체 바 인딩 시 에러가 있다면
             StringBuilder sb = new StringBuilder();
             // StringBuilder : 문자열을 추가, 삭제, 변경할 수 있는 메서드 제공
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();

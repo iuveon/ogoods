@@ -318,7 +318,7 @@ h6, .h6 {
   font-size: 1rem; }
 
 .lead {
-  font-size: 1.25rem;
+  font-size: 0.7rem;
   font-weight: 300; }
 
 .display-1 {
@@ -3812,7 +3812,11 @@ input[type="button"].btn-block {
   padding: 1.25rem; }
 
 .card-title {
-  margin-bottom: 0.75rem; }
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all; }
 
 .card-subtitle {
   margin-top: -0.375rem;
@@ -4197,7 +4201,7 @@ input[type="button"].btn-block {
   border-radius: 0.3rem; }
   @media (min-width: 576px) {
     .jumbotron {
-      padding: 4rem 2rem; } }
+      padding: 2rem 2rem; } }
 
 .jumbotron-fluid {
   padding-right: 0;
@@ -9800,5 +9804,10 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
 .boardListHead, .boardListBody {
-  text-align: center;
-}
+  text-align: center; }
+
+.footer-logo {
+  font-size: 13px;
+  line-height: 2;
+  font-weight: 500;
+  color: #f6f0fd; }

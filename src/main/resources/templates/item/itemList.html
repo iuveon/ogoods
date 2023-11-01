@@ -6,28 +6,15 @@
 
 <div layout:fragment="content">
 
-    <div class="container p-5">
-      <div class="row justify-content-center mb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2 style="display: inline-block" class="mr-5">상품 검색</h2>
-            <form class="form-inline my-2 my-lg-0" style="display: inline-block" th:action="@{/}" method="get">
-              <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </div>
-      </div>
-    </div>
-
-  <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-  <!-- 상품 검색 페이징 처리 시 검색어 유지 위한 hidden 값 -->
-  <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-    <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-  </div>
   <section class="ftco-section bg-light">
     <div class="container">
       <div class="row justify-content-center pb-5 mb-3">
         <div class="col-md-7 heading-section text-center ftco-animate">
           <h2>판매 상품 목록</h2>
+          <!-- 상품 검색 페이징 처리 시 검색어 유지 위한 hidden 값 -->
+          <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+            <p class="h6 font-weight-bold" th:text="${itemSearchDto.searchQuery} + ' - 검색 결과'"></p>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -40,9 +27,9 @@
               <span class="excerpt d-block card-title">[[${item.itemNm}]]</span>
               <span class="price"><span class="number">[[${item.price}]]</span> <sub>원</sub></span>
 
-              <ul class="pricing-text mb-5">
+              <!--<ul class="pricing-text mb-5">
                 <li><span class="fa fa-check mr-2 card-text"></span>[[${item.itemDetail}]]</li>
-              </ul>
+              </ul>-->
               <a th:href="'/item/' +${item.id}" class="btn btn-primary d-block px-2 py-3">상세 보기</a>
             </div>
           </div>
@@ -52,7 +39,7 @@
     </div>
   </section>
 
-
+<br>
   <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
     <ul class="pagination justify-content-center">
 
@@ -74,18 +61,17 @@
 
     </ul>
   </div>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="js/main.js"></script>
+
+  <div class="container p-5">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <h2 style="display: inline-block" class="mr-5">상품 검색</h2>
+        <form class="form-inline my-2 my-lg-0" style="display: inline-block" th:action="@{/item/list}" method="get">
+          <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
 </div>
