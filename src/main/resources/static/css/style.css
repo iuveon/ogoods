@@ -9804,5 +9804,10 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
 .boardListHead, .boardListBody {
-  text-align: center;
-}
+  text-align: center; }
+
+.footer-logo {
+  font-size: 13px;
+  line-height: 2;
+  font-weight: 500;
+  color: #f6f0fd; }

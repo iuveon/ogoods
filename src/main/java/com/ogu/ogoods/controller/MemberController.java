@@ -60,6 +60,10 @@ public class MemberController {
 
     @GetMapping(value =  "/checkId")
     public ResponseEntity<String> checkIdDuplication(@RequestParam("mid") String mid) {
+        /*if (mid == null || mid.isEmpty()) { // 아이디가 비어있는 경우
+            return ResponseEntity.ok("exists");
+        }*/
+
         if (memberService.existsByMid(mid)) {
             return ResponseEntity.ok("exists"); // 이미 가입된 아이디
         } else {

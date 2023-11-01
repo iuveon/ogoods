@@ -9,6 +9,23 @@
         .fieldError {
             color: #bd2130;
         }
+        .btn-smaller {
+            background: #cac2d1;
+            border: 1px solid #cac2d1;
+            color: #fff;
+            padding: 0.2rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 0.2rem;
+        }
+        .availableIdMsg {
+            color: blue;
+            font-size: 12px;
+        }
+        .unavailableIdMsg {
+            color: red;
+            font-size: 12px;
+        }
     </style>
 </th:block>
 
@@ -24,20 +41,23 @@
         });
 
         $(document).ready(function () {
-            var errorMessage = [[${errorMessage}]];
-            if (errorMessage != null) {
-                alert(errorMessage);
-            }
-
             // 아이디 중복확인 버튼 클릭 이벤트 처리
-            $('#checkIdButton').on('click', function () {
+            $('#checkIdButton').on('click', function (event) {
+                event.preventDefault();
                 var mid = $('[name=mid]').val(); // 아이디 입력란의 값 가져오기
 
                 $.get('/members/checkId?mid=' + mid, function (data) {
-                    if (data === 'available') {
-                        alert('사용 가능한 아이디입니다.');
+                    if (mid.trim() === "") {
+                        $("#available").empty();
+                        $("#unavailable").text("아이디를 입력해주세요.");
+                    } else if (data === 'available') {
+                        // alert('사용 가능한 아이디입니다.');
+                        $("#unavailable").empty();
+                        $("#available").text("사용 가능한 아이디입니다.");
                     } else if (data === 'exists') {
-                        alert('이미 가입된 아이디입니다.');
+                        // alert('이미 가입된 아이디입니다.');
+                        $("#available").empty();
+                        $("#unavailable").text("이미 사용중인 아이디입니다.");
                     }
                 });
             });
@@ -56,14 +76,15 @@
             </div>
             <form action="/members/new" role="form" method="post"  th:object="${memberFormDto}">
                 <div class="form-group">
-                    <label th:for="mid">아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="checkIdButton">아이디 중복확인</button></label>
-                    <input type="text" th:field="*{mid}" class="form-control" placeholder="아이디를 입력해주세요(4-12자리)">
+                    <label th:for="mid">아이디&nbsp;&nbsp;&nbsp;<button class="btn btn-smaller" id="checkIdButton">중복확인</button></label>
+                    <!-- 아이디 중복 확인 결과에 따라 메세지 출력 -->
+                    &nbsp;&nbsp;&nbsp;<span id="available" class="availableIdMsg"></span><span id="unavailable" class="unavailableIdMsg"></span>
+                    <input type="text" th:field="*{mid}" class="form-control" placeholder="아이디를 입력해주세요(4-12자리, 영문/숫자만 가능)">
                     <p th:if="${#fields.hasErrors('mid')}" th:errors="*{mid}" class="fieldError">Incorrect data</p>
-                    <p id="idError" class="fieldError"></p>
                 </div>
                 <div class="form-group">
                     <label th:for="password">비밀번호</label>
-                    <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요(8-20자리)">
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요(8-20자리, 영문/숫자/특수문자 필수 포함)">
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
                 </div>
                 <div class="form-group">
