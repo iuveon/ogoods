@@ -8,6 +8,7 @@
     <style>
         .fieldError {
             color: #bd2130;
+            font-size: 12px;
         }
         .btn-smaller {
             background: #cac2d1;
@@ -23,7 +24,7 @@
             font-size: 12px;
         }
         .unavailableIdMsg {
-            color: red;
+            color: #bd2130;
             font-size: 12px;
         }
     </style>
@@ -62,6 +63,37 @@
                 });
             });
         });
+
+        $(document).ready(function () {
+            // 비밀번호 및 비밀번호 재확인 필드 가져오기
+            var passwordField = $('#password');
+            var confirmPasswordField = $('#confirmPassword');
+            var matchContainer = $('#passwordMatchMsg');
+
+            // 입력 필드가 변경될 때 이벤트 처리
+            passwordField.on('input', function () {
+                checkPasswordMatch();
+            });
+
+            confirmPasswordField.on('input', function () {
+                checkPasswordMatch();
+            });
+
+            function checkPasswordMatch() {
+                var password = passwordField.val();
+                var confirmPassword = confirmPasswordField.val();
+
+                if (password === confirmPassword) {
+                    matchContainer.html("비밀번호가 일치합니다.");
+                    matchContainer.css("color", "blue");
+                    matchContainer.css("font-size", "12px");
+                } else {
+                    matchContainer.html("비밀번호가 일치하지 않습니다.");
+                    matchContainer.css("color", "#bd2130");
+                    matchContainer.css("font-size", "12px");
+                }
+            }
+        });
     </script>
 
 </th:block>
@@ -84,8 +116,14 @@
                 </div>
                 <div class="form-group">
                     <label th:for="password">비밀번호</label>
-                    <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요(8-20자리, 영문/숫자/특수문자 필수 포함)">
+                    <input type="password" id="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요(8-20자리, 영문/숫자/특수문자 필수 포함)">
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+                </div>
+                <div class="form-group">
+                    <label th:for="confirmPassword">비밀번호 재확인</label>
+                    &nbsp;&nbsp;&nbsp;<span id="passwordMatchMsg"></span>
+                    <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" placeholder="비밀번호를 다시 한 번 입력해주세요.">
+                    <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="fieldError">Incorrect data</p>
                 </div>
                 <div class="form-group">
                     <label th:for="name">이름</label>
