@@ -55,7 +55,7 @@
         cache   : false,
         success  : function(result, status) {
           alert("주문이 완료 되었습니다.");
-          location.href='/'; // 메인 페이지
+          location.href='/orders'; // 구매이력 페이지로 이동
         }, // 주문 로직 호출 성공시 성공 alert창 띄우고 메인 페이지로 이동
         error : function(jqXHR, status, error) {
 
@@ -97,7 +97,7 @@
         cache   : false,
         success  : function(result, status){
           alert("상품을 장바구니에 담았습니다.");
-          location.href='/';
+          location.href='/item/list'; // 상품 목록 페이지로 이동
         },
         error : function(jqXHR, status, error){
 
@@ -223,7 +223,7 @@
     <div class="container">
       <h6 class="display-5">상품 상세 설명</h6>
       <hr class="my-4">
-      <p class="lead" th:text="${item.itemDetail}"></p>
+      <pre><p class="lead" th:text="${item.itemDetail}"></p></pre>
     </div>
   </div>
 
@@ -269,6 +269,7 @@
       </td>
     </tr>
   </table>
+  <br><br><br>
 
 </div>
 
