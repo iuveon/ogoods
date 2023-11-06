@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 URL
 
         http.authorizeRequests() // 요청에 대한 인증 및 권한 설정
-                .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll() // permitAll() : 모든 사용자 접근 허용
+                .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/img/**").permitAll() // permitAll() : 모든 사용자 접근 허용
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // ADMIN Role인 사용자만 접근 허용
                 .anyRequest().authenticated(); // 그 외 요청은 인증된 사용자만 가능
 
@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/img/**");
         // 보안 필터링을 적용하지 않을 리소스의 경로 패턴을 지정
     }
 

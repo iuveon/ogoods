@@ -22,7 +22,7 @@
   <!--네비게이션 메뉴-->
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/">OGUOGOODS!</a>
+      <a class="navbar-brand" href="/"><img src="/img/mainlogo.png" alt="메인로고"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
       </button>
@@ -45,6 +45,9 @@
               </li>
               <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/orders">구매내역</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/notices">공지사항</a>
               </li>
               <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/members/login">로그인</a>
