@@ -117,7 +117,8 @@
              Thymeleaf에서 반복 작업 수행할 때 주로 사용-->
         <div class="custom-file img-div">
           <input type="file" class="custom-file-input" name="itemImgFile">
-          <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+          <!--<label class="custom-file-label" th:text="상품이미지 + ${num}"></label>-->
+          <label class="custom-file-label" th:text="${num == 1 ? '대표이미지' : '상품이미지 ' + (num - 1)}"></label>
         </div>
       </div>
     </div>
@@ -129,7 +130,8 @@
           <input type="file" class="custom-file-input" name="itemImgFile">
           <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
           <!-- 어떤 이미지가 수정 되었는지 파악하기 위해 아이디를 hidden으로 숨겨서 전달 -->
-          <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
+          <!--<label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>-->
+          <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index}"></label>
           <!-- #strings.isEmpty(String) : 객체가 비어 있는지?
                삼항연산자 사용 -> 이미지 정보가 있다면 파일 이름 출력, 없다면 상품 이미지+번호 출력-->
         </div>

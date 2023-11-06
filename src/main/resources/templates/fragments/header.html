@@ -3,58 +3,43 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="header">
 
-  <style>
-    .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-      font-size: 14px;
-      padding-top: 2.3rem;
-      padding-bottom: 2.3rem;
-      padding-left: 18px;
-      padding-right: 18px;
-      font-weight: 700;
-      color: #4c484f;
-      position: relative;
-      text-transform: uppercase;
-      opacity: 1 !important; }
-    .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
-      color: #fff; }
-  </style>
-
   <!--네비게이션 메뉴-->
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/">OGUOGOODS!</a>
+      <!--<a class="navbar-brand" href="/">OGUOGOODS!</a>-->
+      <a href="/">
+        <img src="/img/siteLogo.png" alt="O-GU-O-GOODS!" class="siteLogo">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span> Menu
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="/item/list">상품 목록</a>
-              </li>
-              <!-- sec:authorize= "hasAnyAuthority()" : 권한을 가진 사용자만 보임 -->
-              <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a class="nav-link" href="/admin/item/new">상품 등록</a>
-              </li>
-              <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a class="nav-link" href="/admin/items">상품 관리</a>
-              </li>
-              <!-- sec:authorize= "isAuthenticated()" : 로그인(인증)한 경우에만 보임 -->
-              <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/cart">장바구니</a>
-              </li>
-              <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/orders">구매내역</a>
-              </li>
-              <li class="nav-item" sec:authorize="isAnonymous()">
-                <a class="nav-link" href="/members/login">로그인</a>
-              </li>
-              <!-- sec:authorize= "isAnonymouse()" : 비로그인 사용자만 보임 -->
-              <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/members/logout">로그아웃</a>
-              </li>
-            </ul>
-          </div>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/item/list">상품 목록</a>
+          </li>
+          <!-- sec:authorize= "hasAnyAuthority()" : 권한을 가진 사용자만 보임 -->
+          <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+            <a class="nav-link" href="/admin/item/new">상품 등록</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+            <a class="nav-link" href="/admin/items">상품 관리</a>
+          </li>
+          <!-- sec:authorize= "isAuthenticated()" : 로그인(인증)한 경우에만 보임 -->
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/cart">장바구니</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/orders">구매내역</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAnonymous()">
+            <a class="nav-link" href="/members/login">로그인</a>
+          </li>
+          <!-- sec:authorize= "isAnonymouse()" : 비로그인 사용자만 보임 -->
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/members/logout">로그아웃</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
