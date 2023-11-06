@@ -17,6 +17,14 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            // 메뉴 항목을 클릭했을 때
+            $('.nav-item').click(function() {
+                $('#ftco-navbar').collapse('hide'); // 메뉴 닫기
+            });
+        });
+    </script>
 
     <link rel="stylesheet" th:href="@{../../css/animate.css}">
     <link rel="stylesheet" th:href="@{../../css/owl.carousel.min.css}">
@@ -32,13 +40,26 @@
     <th:block layout:fragment="script"></th:block>
     <th:block layout:fragment="css"></th:block>
 
+    <style>
+        .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+            font-size: 14px;
+            padding-left: 18px;
+            font-weight: 700;
+            color: #4c484f;
+            position: relative;
+            text-transform: uppercase;
+            opacity: 1 !important; }
+        .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
+            color: #fff; }
+    </style>
+
 </head>
 <body>
 <!-- th:replace -> 다른 html 파일로 치환
      fragments/header(fragments 폴더 하위의 header.html 파일) :: header(header 영역) 가지고 오기 -->
 <div th:replace="~{fragments/header::header}"></div>
 <div layout:fragment="content" class="content">
-    <-- layout:fragment -> layout에서 변경 될 영역 -->
+    <!-- layout:fragment -> layout에서 변경 될 영역 -->
 </div>
 <div th:replace="~{fragments/footer::footer}"></div>
 

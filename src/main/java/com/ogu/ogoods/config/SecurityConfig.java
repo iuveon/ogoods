@@ -2,12 +2,14 @@ package com.ogu.ogoods.config;
 
 import com.ogu.ogoods.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -32,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 URL
 
         http.authorizeRequests() // 요청에 대한 인증 및 권한 설정
-                .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll() // permitAll() : 모든 사용자 접근 허용
+                .mvcMatchers("/", "/members/**", "/item/**", "/images/**", "/img/**").permitAll() // permitAll() : 모든 사용자 접근 허용
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // ADMIN Role인 사용자만 접근 허용
                 .anyRequest().authenticated(); // 그 외 요청은 인증된 사용자만 가능
 
@@ -55,8 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/img/**");
         // 보안 필터링을 적용하지 않을 리소스의 경로 패턴을 지정
+    }
+
+    @Bean//정적 자원 요청 무시 : 시큐리티 처리하지 않음
+    public WebSecurityCustomizer webSecurityCustomizer () {
+        return (web) -> web.ignoring ().requestMatchers (PathRequest.toStaticResources ().atCommonLocations ());
     }
 
 }
