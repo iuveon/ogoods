@@ -1331,7 +1331,11 @@ pre {
   background-color: transparent; }
   .table th,
   .table td {
-    padding: 0.75rem;
+    /*padding: 0.75rem; 기존코드*/
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 0%;
+    padding-right: 0rem;
     vertical-align: top;
     border-top: 1px solid #dee2e6; }
   .table thead th {
@@ -8016,7 +8020,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #D1BAE8; }
+  color: #4c484f; }
   a:hover, a:focus {
     text-decoration: none;
     color: #D1BAE8;
