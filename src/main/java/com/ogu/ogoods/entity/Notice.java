@@ -24,7 +24,6 @@ public class Notice extends BaseEntity{
     private String title; // 제목
 
     @Lob
-    @Column(nullable = false)
     private String content; // 내용
 
     @Enumerated(EnumType.STRING) // Enum 타입 매핑(EnumType.STRING : Enum이름을 column에 저장

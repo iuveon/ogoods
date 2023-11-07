@@ -41,9 +41,9 @@
             width:100%;
             height:400px;
         }
-        .wd50{
+        .noticeblock{
             height:auto;
-            width:50%;
+            width:100%;
         }
         .tab-notice{
             font-size: 10px;
@@ -63,67 +63,43 @@
     </style>
 </th:block>
 
+<!--Read페이지-->
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
     <br><br><br>
-    <input type="hidden" id="itemId" th:value="${item.id}">
+    <!--<input type="text" id="nno" th:value="'공지사항 '${notice.nno}+'번'" style="border: none" readonly>-->
+    <p>공지사항 [[${notice.nno}]]번</p>
 
-    <div class="d-flex">
-        <div class="repImgDiv">
-            <img th:src="${item.itemImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${item.itemNm}">
-        </div>
-        <div class="wd50">
-      <span th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
-          판매중
+        <div class="noticeblock">
+      <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}" class="badge badge-primary mgb-15">
+          일반
       </span>
-            <span th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SOLD_OUT}" class="badge btn-danger mgb-15" >
-          품절
+            <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).HIDDEN}" class="badge btn-danger mgb-15" >
+          숨김
       </span>
-            <span th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).RESERVE}" class="badge btn-danger mgb-15" >
-          판매보류
+            <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED}" class="badge btn-danger mgb-15" >
+          필독
       </span>
-            <div class="h4" th:text="${item.itemNm}"></div>
+            <div class="h4" th:text="${notice.title}"></div>
+
             <hr class="my-4">
 
-            <div class="text-right">
-                <div class="h4 text-danger text-left">
-                    <input type="hidden" th:value="${item.price}" id="price" name="price">
-                    <span th:text="${item.price}"></span>원
+            <!--<div th:if="${notice.content != null}" class="jumbotron jumbotron-fluid mgt-30">
+                <div class="container">
+                    <hr class="my-4">
+                    <pre>
+                        <p class="lead" th:text="${notice.content}"></p>
+                    </pre>
                 </div>
-                <div class="input-group w-50">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">수량</span>
-                    </div>
-                    <input type="number" name="count" id="count" class="form-control" value="1" min="1">
-                </div>
-            </div>
-            <hr class="my-4">
+            </div>-->
 
-            <div class="text-right mgt-50">
-                <h5>결제 금액</h5>
-                <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
-            </div>
-            <div th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL}" class="text-right">
-                <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
-            </div>
-            <div th:unless="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL}" class="text-right">
-                <button type="button" class="btn btn-danger btn-lg">구매 불가</button>
-            </div>
+
+    <div th:each="noticeImg : ${notice.noticeImgDTOList}" class="text-center">
+        <img th:src="${noticeImg.imgUrl}" class="rounded mgb-15 img-1">
+    </div>
+
+        <br><hr><br>
         </div>
+    <p th:align="center"><button class="btn btn-outline-success my-2" type="button" onclick="history.back();">목록</button></p>
     </div>
-
-    <br><br><br><hr><br><br><br>
-
-
-    <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
-        <img th:if="${not #strings.isEmpty(itemImg.imgUrl) and itemImg.repImgYn == 'N'}" th:src="${itemImg.imgUrl}" class="rounded mgb-15 img-1">
-    </div>
-
-    <br><br><br><hr><br><br><br>
-
-
-    <br><br><br>
-
-</div>
 
 </html>
