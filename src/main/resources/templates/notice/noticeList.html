@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout1}">
 
 <!-- 사용자 스크립트 추가 -->
@@ -43,12 +44,16 @@
         select{
             margin-right:10px;
         }
+        /*required-row {
+            background-color: red;
+            color: white;
+        }*/
     </style>
 </th:block>
 
 <div layout:fragment="content">
     <div class="container" style="margin: 50px auto;">
-    <button style="margin-bottom: 0.3rem;" id="registerBtn" type="button" class="btn btn-primary">공지글 작성</button>
+    <button style="margin-bottom: 0.3rem;" id="registerBtn" type="button" class="btn btn-primary" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">공지글 작성</button>
     <form th:action="@{'/admin/notices/' + ${notices.number}}" role="form" method="get" th:object="${notices}">
         <table class="table">
             <thead>
@@ -60,6 +65,7 @@
             </thead>
             <tbody>
             <tr th:each="notice, status: ${notices.getContent()}">
+            <!--<tr th:each="notice, status: ${notices.getContent()}" class="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED} ? 'required-row' : ''">-->
                 <!-- 조회한 상품 데이터 리스트 가져와서 th:each로 테이블 row 출력 -->
                 <td th:align="center" th:text="${notice.nno}"></td>
                 <td style="color: #D1BAE7" th:align="right" th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}">

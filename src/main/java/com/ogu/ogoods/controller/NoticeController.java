@@ -94,7 +94,7 @@ public class NoticeController {
         return "redirect:/"; // 완료되면 메인페이지로 리다이렉트 시킴
     }
 
-    @GetMapping(value = {"/admin/notices", "/admin/notices/{page}"})
+    @GetMapping(value = {"/notices", "/notices/{page}"})
     // 배열을 통해 http://localhost/admin/notices http://localhost/admin/페이지번호 모두 반응
     public String noticeManage(NoticeSearchDTO noticeSearchDTO, @PathVariable("page") Optional<Integer> page, Model model) {
         // @PathVariable : URL경로에서 변수 값 추출하여 사용 가능
@@ -108,7 +108,7 @@ public class NoticeController {
         model.addAttribute("noticeSearchDTO", noticeSearchDTO);
         // 페이지 전환 시 기존 검색 조건 유지할 수 있도록 뷰에 다시 전달
         model.addAttribute("maxPage", 5); // 최대 페이지 번호 개수
-        return "notice/noticeMng";
+        return "notice/noticeList";
     }
 
     @GetMapping(value = "/notice/{nno}") // http://localhost/notice/공지번호
