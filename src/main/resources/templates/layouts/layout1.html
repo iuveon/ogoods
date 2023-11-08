@@ -57,11 +57,11 @@
 <body>
 <!-- th:replace -> 다른 html 파일로 치환
      fragments/header(fragments 폴더 하위의 header.html 파일) :: header(header 영역) 가지고 오기 -->
-<div th:replace="~{fragments/header::header}"></div>
+<div th:replace="~{fragments/header::header}" class="header"></div>
 <div layout:fragment="content" class="content">
     <!-- layout:fragment -> layout에서 변경 될 영역 -->
 </div>
-<div th:replace="~{fragments/footer::footer}"></div>
+<div th:replace="~{fragments/footer::footer}" class="footer"></div>
 
 </body>
 </html>

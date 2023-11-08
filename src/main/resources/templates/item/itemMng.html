@@ -51,41 +51,37 @@
 <div layout:fragment="content">
 
     <div class="container" style="margin: 50px auto;">
-        <!--<form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}" style="padding : 5% 10% 40% 10%;">-->
         <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
-            <table class="table">
+            <table class="table table-width">
                 <thead>
-                <tr style="line-height: 0.5; border-bottom: 1px double gray; border-top: 1px double gray;">
+                <tr th:class="tr-title" th:align="center">
                     <td>상품번호</td>
-                    <td>상품명</td>
+                    <td th:colspan="2">상품명</td>
                     <td>재고</td>
-                    <td>상태</td>
-                    <td>등록자</td>
+                    <!--<td>상태</td>-->
+                    <!--<td>등록자</td> 등록자는 DB에서만 관리되도록 함-->
                     <td>등록일</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="item, status: ${items.getContent()}">
                     <!-- 조회한 상품 데이터 리스트 가져와서 th:each로 테이블 row 출력 -->
-                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.id}" th:align="center"></td>
+                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL}" class="table-content" style="color: #D1BAE7">
+                        [판매]
+                    </td>
+                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SOLD_OUT}" class="table-content" style="color: #dc3545">
+                        [품절]
+                    </td>
+                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).RESERVE}" class="table-content" style="color: #4570ff">
+                        [보류]
+                    </td>
                     <td>
-                        <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
+                        <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}" style="padding-left: 0.3rem"></a>
                     </td>
-                    <td th:text="${item.stockNumber}"></td>
-                    <!-- <td th:text="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL} ? '판매중' : '품절'"></td> -->
-                    <!-- 상품 판매 상태가 SELL 이라면 판매중, 아니라면 품절로 표시 -->
-                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SELL}">
-                        판매중
-                    </td>
-                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SOLD_OUT}">
-                        품절
-                    </td>
-                    <td th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).RESERVE}">
-                        판매보류
-                    </td>
-                    <td th:text="${item.createdBy}"></td>
-                    <!--<td th:text="${item.regTime}"></td>-->
-                    <td th:text="${#temporals.format(item.regTime, 'yyyy-MM-dd  HH:mm:ss')}"></td>
+                    <td th:text="${item.stockNumber}"  th:align="center"></td>
+                    <!--<td th:text="${item.createdBy}"></td>-->
+                    <td th:text="${#temporals.format(item.regTime, 'yyyy-MM-dd  HH:mm:ss')}"  th:align="center"></td>
                 </tr>
                 </tbody>
             </table>

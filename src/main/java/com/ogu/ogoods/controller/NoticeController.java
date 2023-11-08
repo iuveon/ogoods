@@ -31,7 +31,7 @@ public class NoticeController {
     @GetMapping(value = "/admin/notice/new") // http://localhost/admin/notice/new
     public String noticeForm(Model model) {
         model.addAttribute("noticeFormDTO", new NoticeFormDTO());
-        return "/notice/noticeForm";
+        return "notice/noticeForm";
     }
 
     @PostMapping(value = "/admin/notice/new")
@@ -108,7 +108,7 @@ public class NoticeController {
         model.addAttribute("noticeSearchDTO", noticeSearchDTO);
         // 페이지 전환 시 기존 검색 조건 유지할 수 있도록 뷰에 다시 전달
         model.addAttribute("maxPage", 5); // 최대 페이지 번호 개수
-        return "/notice/noticeList";
+        return "notice/noticeList";
     }
 
     @GetMapping(value = "/notice/{nno}") // http://localhost/notice/공지번호
