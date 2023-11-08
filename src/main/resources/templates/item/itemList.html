@@ -22,7 +22,8 @@
           <div class="col-md-4 ftco-animate">
           <div class="block-7">
 
-            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+            <!--<img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">-->
+            <a th:href="'/item/' +${item.id}"><img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400"></a>
             <div class="text-center p-4 card-body">
               <span class="excerpt d-block card-title">[[${item.itemNm}]]</span>
               <span class="price"><span class="number">[[${item.price}]]</span> <sub>원</sub></span>
