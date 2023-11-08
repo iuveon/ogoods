@@ -37,41 +37,42 @@
         </th:block>
       </div>
     </div>
-  </section>
 
-<br>
-  <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-    <ul class="pagination justify-content-center">
+    <br>
 
-      <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-        <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number - 1}}" aria-label='Previous' class="page-link">
-          <span aria-hidden='true'>Previous</span>
-        </a>
-      </li>
+    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+      <ul class="pagination justify-content-center">
 
-      <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page - 1}?'active':''">
-        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page - 1}}" th:inline="text" class="page-link">[[${page}]]</a>
-      </li>
+        <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+          <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number - 1}}" aria-label='Previous' class="page-link">
+            <span aria-hidden='true'>Previous</span>
+          </a>
+        </li>
 
-      <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-        <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-          <span aria-hidden='true'>Next</span>
-        </a>
-      </li>
+        <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page - 1}?'active':''">
+          <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page - 1}}" th:inline="text" class="page-link">[[${page}]]</a>
+        </li>
 
-    </ul>
-  </div>
+        <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+          <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+            <span aria-hidden='true'>Next</span>
+          </a>
+        </li>
 
-  <div class="container p-5">
-    <div class="row justify-content-center mb-3">
-      <div class="col-md-7 heading-section text-center ftco-animate">
-        <h2 style="display: inline-block" class="mr-5">상품 검색</h2>
-        <form class="form-inline my-2 my-lg-0" style="display: inline-block" th:action="@{/item/list}" method="get">
-          <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+      </ul>
+    </div>
+
+    <div class="container p-5">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+          <h2 style="display: inline-block" class="mr-5">상품 검색</h2>
+          <form class="form-inline my-2 my-lg-0" style="display: inline-block" th:action="@{/item/list}" method="get">
+            <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+    <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+  </section>
 </div>

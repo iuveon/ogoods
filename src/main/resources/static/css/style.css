@@ -5305,6 +5305,9 @@ button.bg-light:hover,
 button.bg-light:focus {
   background-color: #dae0e5 !important; }
 
+.bg-purple {
+  background-color: #e6e1f4 !important; }
+
 .bg-dark {
   background-color: #343a40 !important; }
 
@@ -9836,8 +9839,21 @@ textarea.form-control {
   max-height: 100vh;
   width: auto; /* 이미지의 너비를 자동으로 조절합니다. */
   height: auto; /* 이미지의 높이를 자동으로 조절합니다. */
+  align-content: center;
 }
 .required {
-  background-color: #f7ddf8; /* 빨간색 배경 */
-  color: #8c5151; /* 흰색 텍스트 */
+  background-color: #e6e1f4;
+  color: #FFFFFF; !important;
+}
+.tr-title {
+  line-height: 0.5;
+  border-bottom: 1px double gray;
+  border-top: 1px double gray;
+}
+.table-width{
+  width:80%;
+  margin: 30px 10%;
+}
+.table-content{
+  text-align: right;
 }
