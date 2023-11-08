@@ -94,7 +94,7 @@ public class NoticeController {
         return "redirect:/"; // 완료되면 메인페이지로 리다이렉트 시킴
     }
 
-    @GetMapping(value = {"/notices", "/notices/{page}"})
+    @GetMapping(value = {"/admin/notices", "/admin/notices/{page}"})
     // 배열을 통해 http://localhost/admin/notices http://localhost/admin/페이지번호 모두 반응
     public String noticeManage(NoticeSearchDTO noticeSearchDTO, @PathVariable("page") Optional<Integer> page, Model model) {
         // @PathVariable : URL경로에서 변수 값 추출하여 사용 가능

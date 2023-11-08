@@ -72,7 +72,11 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
                                 noticeSearchDTO.getSearchQuery()))
                 // where 조건절을 이용하여 BooleanExpression 반환 조건문 입력
                 // ,를 이용하면 and 조건 인식
-                .orderBy(QNotice.notice.nno.desc())
+                .where(QNotice.notice.noticeStatus.ne(NoticeStatus.HIDDEN)) // 공지사항상태(NoticeStatus)가 HIDDEN 아닌 경우만
+                .orderBy(
+                        QNotice.notice.noticeStatus.desc(),  // NoticeStatus 내름차순(GENERAL-Required-HIDDEN)
+                        QNotice.notice.nno.desc()              // notice.nno 내림차순
+                )
                 .offset(pageable.getOffset()) // 데이터를 가지고 올 시작 인덱스 지정
                 .limit(pageable.getPageSize()) // 검색 결과에서 가지고 올 항목 개수 지정
                 .fetchResults(); // 조회 리스트 및 전체 개수 반환 -> Querydsl 5버전에서 deprecated 됨
@@ -103,7 +107,6 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
                 .join(noticeImg.notice, notice)
                 // itemImg와 img 내부 조인 -> 교집합 결과를 반환함
                 .where(notice.noticeStatus.ne(NoticeStatus.HIDDEN)) // 공지사항상태(NoticeStatus)가 HIDDEN 아닌 경우만
-                .where(noticeImg.repImgYn.eq("Y")) // repImgYn (대표 이미지 여부)가 Y인 경우만
                 .where(itemNmLike(noticeSearchDTO.getSearchQuery()))
                 .orderBy(
                         notice.noticeStatus.asc(),  // NoticeStatus 오름차순(SELL - SOLD_OUT - RESERVE)
