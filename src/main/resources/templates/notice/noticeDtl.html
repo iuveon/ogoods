@@ -66,40 +66,35 @@
 <!--Read페이지-->
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
     <br><br><br>
-    <!--<input type="text" id="nno" th:value="'공지사항 '${notice.nno}+'번'" style="border: none" readonly>-->
     <p>공지사항 [[${notice.nno}]]번</p>
 
-        <div class="noticeblock">
-      <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}" class="badge badge-primary mgb-15">
+    <div class="noticeblock">
+        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}" class="badge badge-primary mgb-15">
           일반
-      </span>
-            <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).HIDDEN}" class="badge btn-danger mgb-15" >
+        </span>
+        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).HIDDEN}" class="badge btn-danger mgb-15" >
           숨김
-      </span>
-            <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED}" class="badge btn-danger mgb-15" >
+        </span>
+        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED}" class="badge btn-danger mgb-15" >
           필독
-      </span>
-            <div class="h4" th:text="${notice.title}"></div>
+        </span>
+        <div class="h4" th:text="${notice.title}"></div>
 
-            <hr class="my-4">
+        <hr class="my-4">
 
-            <!--<div th:if="${notice.content != null}" class="jumbotron jumbotron-fluid mgt-30">
-                <div class="container">
-                    <hr class="my-4">
-                    <pre>
-                        <p class="lead" th:text="${notice.content}"></p>
-                    </pre>
-                </div>
-            </div>-->
+        <div th:if="${not #lists.isEmpty(notice.content)}"> <!-- 공지사항 내용 있을 때만 출력 -->
+            <div style="padding: 3rem; background-color: #E6E1F4;">
+                <pre><p class="lead" th:text="${notice.content}"></p></pre>
+            </div>
+        </div>
 
-
-    <div th:each="noticeImg : ${notice.noticeImgDTOList}" class="text-center">
-        <img th:src="${noticeImg.imgUrl}" class="rounded mgb-15 img-1">
-    </div>
+        <div th:each="noticeImg : ${notice.noticeImgDTOList}" class="text-center">
+            <img th:src="${noticeImg.imgUrl}" class="rounded mgb-15 img-1">
+        </div>
 
         <br><hr><br>
-        </div>
-    <p th:align="center"><button class="btn btn-outline-success my-2" type="button" onclick="history.back();">목록</button></p>
     </div>
+    <p th:align="center"><button class="btn btn-outline-success my-2" type="button" onclick="history.back();">목록</button></p>
+</div>
 
 </html>
