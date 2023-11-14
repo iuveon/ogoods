@@ -185,7 +185,7 @@
       <div class="text-right">
         <div class="h4 text-danger text-left">
           <input type="hidden" th:value="${item.price}" id="price" name="price">
-          <span th:text="${item.price}"></span>원
+          <span th:text="${item.price} + '원'"></span>
         </div>
         <div class="input-group w-50">
           <div class="input-group-prepend">

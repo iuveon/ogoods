@@ -8897,7 +8897,7 @@ textarea.form-control {
       top: -1em;
       color: #b3b3b3; }
     .block-7 .price .number {
-      font-size: 60px;
+      font-size: 30px;
       font-weight: 600;
       color: #000000; }
   .block-7 .excerpt {
@@ -9856,4 +9856,8 @@ textarea.form-control {
 }
 .table-content{
   text-align: right;
+}
+.goods-title{
+  color: #D1BAE7;
+  font-size: 18px;
 }
