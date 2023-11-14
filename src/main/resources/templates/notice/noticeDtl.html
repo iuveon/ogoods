@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout1}">
 
 <head>
@@ -11,8 +12,13 @@
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-
-
+        $(document).ready(function(){
+            $("#noticeEdit").on("click",function(e) {
+                e.preventDefault(); // preventDefault를 이용해 form 태그 전송 막기
+                var noticeNno = /*[[${notice.nno}]]*/ '';
+                location.href="/admin/notice/" + noticeNno;
+            });
+        });
     </script>
 </th:block>
 
@@ -26,75 +32,51 @@
             max-width:100%;
             width:auto;
         }
-        .mgt-30{
-            margin-top:30px;
-        }
-        .mgt-50{
-            margin-top:50px;
-        }
-        .repImgDiv{
-            margin-right:15px;
-            height:auto;
-            width:50%;
-        }
-        .repImg{
-            width:100%;
-            height:400px;
-        }
         .noticeblock{
             height:auto;
             width:100%;
-        }
-        .tab-notice{
-            font-size: 10px;
-            max-width: 120%;
-            font-family: "Montserrat", Arial, sans-serif;
-            background: #fff;
-            line-height: 1.8;
-            font-weight: 400;
-            color: gray;
-        }
-        .tab-wid1{
-            width: 12%;
-        }
-        .tab-wid2{
-            width: 88%;
         }
     </style>
 </th:block>
 
 <!--Read페이지-->
-<div layout:fragment="content" style="margin-left:25%;margin-right:25%">
+<div layout:fragment="content" style="margin: 0 25%;">
     <br><br><br>
-    <p>공지사항 [[${notice.nno}]]번</p>
 
     <div class="noticeblock">
-        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}" class="badge badge-primary mgb-15">
-          일반
+        <span>
+            <div th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).GENERAL}" class="badge badge-primary mgb-15">
+              일반 - [[${notice.nno}]]번 공지
+            </div>
+            <div th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).HIDDEN}" class="badge btn-danger mgb-15" >
+              숨김 - [[${notice.nno}]]번 공지
+            </div>
+            <div th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED}" class="badge btn-danger mgb-15" >
+              필독 - [[${notice.nno}]]번 공지
+            </div>
         </span>
-        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).HIDDEN}" class="badge btn-danger mgb-15" >
-          숨김
-        </span>
-        <span th:if="${notice.noticeStatus == T(com.ogu.ogoods.constant.NoticeStatus).REQUIRED}" class="badge btn-danger mgb-15" >
-          필독
-        </span>
-        <div class="h4" th:text="${notice.title}"></div>
+
+        <div class="h4" style="text-align: center" th:text="${notice.title}"></div>
+        <!--<div style="text-align: right">등록일</div>-->
 
         <hr class="my-4">
-
-        <div th:if="${not #lists.isEmpty(notice.content)}"> <!-- 공지사항 내용 있을 때만 출력 -->
-            <div style="padding: 3rem; background-color: #E6E1F4;">
-                <pre><p class="lead" th:text="${notice.content}"></p></pre>
-            </div>
-        </div>
 
         <div th:each="noticeImg : ${notice.noticeImgDTOList}" class="text-center">
             <img th:src="${noticeImg.imgUrl}" class="rounded mgb-15 img-1">
         </div>
 
+        <div style="margin: 0 5rem;" th:if="${not #lists.isEmpty(notice.content)}"> <!-- 공지사항 내용 있을 때만 출력 -->
+            <div style="padding: 3rem; background-color: #E6E1F4;">
+                <pre><p class="lead" th:text="${notice.content}"></p></pre>
+            </div>
+        </div>
+
         <br><hr><br>
     </div>
-    <p th:align="center"><button class="btn btn-outline-success my-2" type="button" onclick="history.back();">목록</button></p>
+    <p th:align="center">
+        <button type="button" class="btn btn-outline-success my-2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')" id="noticeEdit">수정</button>
+        <button class="btn btn-outline-success my-2" type="button" onclick="history.back();">목록</button>
+    </p>
 </div>
 
 </html>

@@ -90,13 +90,14 @@
                 </td>
                 <td class="td-title" style="padding-left: 0.3rem">
                     <!--관리자인 경우 목록에서 게시글제목을 누르면 수정페이지로 이동-->
-                    <a th:if="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')}"
+                    <!--<a th:if="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')}"
                        th:href="'/admin/notice/'+${notice.nno}" th:align="left" th:text="${notice.title}">
                     </a>
-                    <!--일반사용자인 경우 목록에서 게시글제목을 누르면 상세페이지로 이동-->
+                    &lt;!&ndash;일반사용자인 경우 목록에서 게시글제목을 누르면 상세페이지로 이동&ndash;&gt;
                     <a th:unless="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')}"
                        th:href="'/notice/'+${notice.nno}" th:align="left" th:text="${notice.title}">
-                    </a>
+                    </a>-->
+                    <a th:href="'/notice/'+${notice.nno}" th:align="left" th:text="${notice.title}"/>
                 </td>
                 <td th:hidden="${notice.createdBy}"></td><!--관리자 아이디 숨김 / DB에는 createdBy로 자동저장됨-->
                 <td th:align="center" th:text="${#temporals.format(notice.regTime, 'yyyy-MM-dd HH:mm:ss')}" class="td-regTime"></td>
