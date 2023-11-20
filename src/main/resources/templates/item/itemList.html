@@ -14,9 +14,9 @@
       <div class="row justify-content-center mb-3">
         <span class="goods-title">오구오굿 상품 구경하기 (´▽`ʃ♡ƪ)</span>
         <!-- 상품 검색 페이징 처리 시 검색어 유지 위한 hidden 값 -->
-        <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-          <p class="h6 font-weight-bold" th:text="${itemSearchDto.searchQuery} + ' - 검색 결과'"></p>
-        </div>
+      </div>
+      <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center" style="text-align: center">
+        <p class="h6 font-weight-bold" th:text="${itemSearchDto.searchQuery} + ' - 검색 결과'"></p>
       </div>
         <!--</div>
       </div>-->
@@ -28,9 +28,17 @@
             <!--<img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">-->
             <a th:href="'/item/' +${item.id}"><img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400"></a>
             <div class="text-center p-4 card-body">
-              <span class="excerpt d-block card-title">[[${item.itemNm}]]</span>
+              <span class="excerpt d-block card-title">
+                <span th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).SOLD_OUT}" class="badge btn-danger mgb-15" >
+                    품절
+                </span>
+                <span th:if="${item.itemSellStatus == T(com.ogu.ogoods.constant.ItemSellStatus).RESERVE}" class="badge btn-danger mgb-15" >
+                    판매보류
+                </span>
+                <span th:text="${item.itemNm}"></span>
+              </span>
+              <!--<span class="excerpt d-block card-title">[[${item.itemNm}]]</span>-->
               <span class="price"><span class="number">[[${item.price}]]</span> <sub>원</sub></span>
-
               <!--<ul class="pricing-text mb-5">
                 <li><span class="fa fa-check mr-2 card-text"></span>[[${item.itemDetail}]]</li>
               </ul>-->
@@ -48,17 +56,17 @@
       <ul class="pagination justify-content-center">
 
         <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-          <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number - 1}}" aria-label='Previous' class="page-link">
+          <a th:href="@{'/item/list' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number - 1}}" aria-label='Previous' class="page-link">
             <span aria-hidden='true'>Previous</span>
           </a>
         </li>
 
         <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page - 1}?'active':''">
-          <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page - 1}}" th:inline="text" class="page-link">[[${page}]]</a>
+          <a th:href="@{'/item/list' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page - 1}}" th:inline="text" class="page-link">[[${page}]]</a>
         </li>
 
         <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-          <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+          <a th:href="@{'/item/list' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
             <span aria-hidden='true'>Next</span>
           </a>
         </li>

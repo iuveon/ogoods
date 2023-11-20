@@ -92,7 +92,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         QItemImg itemImg = QItemImg.itemImg;
 
         QueryResults<MainItemDto> results = queryFactory
-                .select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price))
+                .select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price, item.itemSellStatus))
                 // QMainItemDto 생성자에 값 입력 -> @QueryProjection을 사용하여 DTO 바로 조회
                 // 엔티티 조회 후 DTO 변환 과정 단축
                 .from(itemImg)
